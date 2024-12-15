@@ -1,14 +1,6 @@
 <template>
   <div class="container">
-    <div style="width: 500px; padding: 40px;  background-color:transparent; border-radius: 3px;background-color: rgba(89, 89, 89, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(19.5px);
-border: 1px solid rgba(255, 255, 255, 0.18);
-box-shadow: rgba(14, 14, 14, 0.19) 0px 6px 15px 0px;
--webkit-box-shadow: rgba(14, 14, 14, 0.19) 0px 6px 15px 0px;
-border-radius: 10px;
--webkit-border-radius: 10px;
-color: rgba(128, 128, 128, 0.4);"> 
+    <div class="box"> 
       <div style="text-align: center; font-size: 21pt; margin-bottom: 30px; color: #fff;font-weight: bold;">欢迎登录医院预约挂号系统</div>
       <el-form :model="form" :rules="rules" ref="formRef">
         <el-form-item prop="username">
@@ -83,6 +75,9 @@ export default {
     this.refreshCaptcha();
   },
   methods: {
+    /**
+     * 登录
+     */
     login() {
       this.$refs['formRef'].validate((valid) => {
         if (valid) {
@@ -93,17 +88,20 @@ export default {
               this.$router.push('/')  // 跳转主页
               this.$message.success('登录成功')
             } else {
-                //  this.form.verifyCode = "";//清空输入框
+                 this.form.verifyCode = "";//清空输入框
               this.$message.error(res.msg)
-             // this.refreshCaptcha(); //刷新验证码
+             this.refreshCaptcha(); //刷新验证码
             }
           })   
         }
       })
     },
+
+    /**
+     * 获取后端验证码
+     */
     refreshCaptcha(){
-      request.get('/auth/code').then(resp=>{
-        // console.log("验证码 响应体",resp);
+      this.$request.get('/auth/code').then(resp=>{ 
         this.captchaUrl = "data:image/png;base64,"+ resp.data;
       })
     }
@@ -138,7 +136,19 @@ export default {
 a {
   color: #198aee;
 }
-
+.box{
+width: 500px; padding: 40px;  
+background-color:transparent; 
+border-radius: 1px;background-color: rgba(89, 89, 89, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(19.5px);
+border: 1px solid rgba(255, 255, 255, 0.18);
+box-shadow: rgba(14, 14, 14, 0.19) 0px 6px 15px 0px;
+-webkit-box-shadow: rgba(14, 14, 14, 0.19) 0px 6px 15px 0px;
+border-radius: 8px;
+-webkit-border-radius: 8px;
+color: rgba(128, 128, 128, 0.4);
+}
 
 </style>
 

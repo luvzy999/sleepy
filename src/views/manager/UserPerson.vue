@@ -60,6 +60,9 @@
         <el-form-item prop="money" label="输入金额">
           <el-input v-model="money" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item prop="money" label="输入金额">
+          
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="fromVisible = false">取 消</el-button>
